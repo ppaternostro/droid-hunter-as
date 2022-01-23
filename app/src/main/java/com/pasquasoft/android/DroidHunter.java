@@ -1,5 +1,12 @@
 package com.pasquasoft.android;
 
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.pasquasoft.android.util.Util;
+import com.pasquasoft.android.view.CanvasView;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -17,13 +24,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.pasquasoft.android.util.Util;
-import com.pasquasoft.android.view.CanvasView;
-
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DroidHunter extends Activity
 {
@@ -204,41 +204,45 @@ public class DroidHunter extends Activity
   {
     boolean consume = false;
 
-    switch (item.getItemId())
+    int itemId = item.getItemId();
+
+    if (itemId == R.id.stop)
     {
-      case R.id.stop:
-        stopGame();
-        finish();
-        consume = true;
-        break;
-      case R.id.pause:
-        pauseGame();
-        item.setVisible(false);
-        menu.getItem(RESUME).setVisible(true);
-        paused = true;
-        consume = true;
-        break;
-      case R.id.resume:
-        resumeGame();
-        item.setVisible(false);
-        menu.getItem(PAUSE).setVisible(true);
-        paused = false;
-        consume = true;
-        break;
-      case R.id.sound_off:
-        ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, true);
-        item.setVisible(false);
-        menu.getItem(SOUND_ON).setVisible(true);
-        muted = true;
-        consume = true;
-        break;
-      case R.id.sound_on:
-        ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, false);
-        item.setVisible(false);
-        menu.getItem(SOUND_OFF).setVisible(true);
-        muted = false;
-        consume = true;
-        break;
+      stopGame();
+      finish();
+      consume = true;
+    }
+    else if (itemId == R.id.pause)
+    {
+      pauseGame();
+      item.setVisible(false);
+      menu.getItem(RESUME).setVisible(true);
+      paused = true;
+      consume = true;
+    }
+    else if (itemId == R.id.resume)
+    {
+      resumeGame();
+      item.setVisible(false);
+      menu.getItem(PAUSE).setVisible(true);
+      paused = false;
+      consume = true;
+    }
+    else if (itemId == R.id.sound_off)
+    {
+      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, true);
+      item.setVisible(false);
+      menu.getItem(SOUND_ON).setVisible(true);
+      muted = true;
+      consume = true;
+    }
+    else if (itemId == R.id.sound_on)
+    {
+      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, false);
+      item.setVisible(false);
+      menu.getItem(SOUND_OFF).setVisible(true);
+      muted = false;
+      consume = true;
     }
 
     return consume;
