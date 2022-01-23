@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="modes">
+        <item>@string/mode_single</item>
+        <item>@string/mode_multilevel</item>
+    </string-array>
+
+    <string-array name="sounds">
+        <item>@string/sound_on</item>
+        <item>@string/sound_off</item>
+    </string-array>
+    
+    <string-array name="weapons">
+        <item>@string/weapon_cannon</item>
+        <item>@string/weapon_phaser</item>
+        <item>@string/weapon_laser</item>
+    </string-array>
+    
+    <string-array name="difficulties">
+        <item>@string/difficulty_easy</item>
+        <item>@string/difficulty_medium</item>
+        <item>@string/difficulty_hard</item>
+        <item>@string/difficulty_ridiculous</item>
+    </string-array>
+</resources>

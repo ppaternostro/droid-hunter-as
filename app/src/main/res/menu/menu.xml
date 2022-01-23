@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/resume"
+        android:title="@string/menu_resume"
+        android:icon="@drawable/ic_menu_resume"
+        android:visible="false"/>
+    <item
+        android:id="@+id/pause"
+        android:icon="@drawable/ic_menu_pause"
+        android:title="@string/menu_pause"/>
+    <item
+        android:id="@+id/stop"
+        android:icon="@drawable/ic_menu_stop"
+        android:title="@string/menu_stop"/>
+    <item
+        android:id="@+id/sound_off"
+        android:icon="@drawable/ic_menu_sound_off"
+        android:title="@string/menu_sound_off"/>
+    <item
+        android:id="@+id/sound_on"
+        android:icon="@drawable/ic_menu_sound_on"
+        android:title="@string/menu_sound_on"
+        android:visible="false"/>
+</menu>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:animationCache="false"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="200dip"
+        android:layout_height="350dip"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <Button
+            android:id="@+id/newGame"
+            android:layout_width="200dip"
+            android:layout_height="50dip"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="36dp"
+            android:text="@string/label_new_game">
+        </Button>
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="200dip"
+            android:layout_height="50dip"
+            android:layout_below="@+id/newGame"
+            android:layout_alignParentStart="true"
+            android:text="@string/label_settings">
+        </Button>
+
+        <Button
+            android:id="@+id/about"
+            android:layout_width="200dip"
+            android:layout_height="50dip"
+            android:layout_below="@+id/settings"
+            android:layout_alignParentStart="true"
+            android:text="@string/label_about">
+        </Button>
+
+        <Button
+            android:id="@+id/howTo"
+            android:layout_width="200dip"
+            android:layout_height="50dip"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/about"
+            android:text="@string/label_how_to">
+        </Button>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/main_title"
+        android:contentDescription="@+id/title" />
+
+</RelativeLayout>
