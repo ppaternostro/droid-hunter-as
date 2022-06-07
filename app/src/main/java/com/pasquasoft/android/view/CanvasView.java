@@ -1,25 +1,18 @@
 package com.pasquasoft.android.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.pasquasoft.android.R;
 import com.pasquasoft.android.model.Animation;
 import com.pasquasoft.android.model.Entity;
-import com.pasquasoft.android.model.Level;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 public class CanvasView extends View implements Runnable
@@ -81,84 +74,7 @@ public class CanvasView extends View implements Runnable
 
     /* Retrieve game preferences */
     SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-
-    /* Retrieve mode */
-    int mode = prefs.getInt(context.getString(R.string.prefs_game_mode_key), SINGLE);
-
-    /* Retrieve weapon */
-    int weapon = prefs.getInt(context.getString(R.string.prefs_weapon_sound_key), CANNON);
-
-    if (mode == SINGLE)
-    {
-      /* Retrieve level */
-      int difficulty = prefs.getInt(context.getString(R.string.prefs_difficulty_level_key), EASY);
-
-      increment = (difficulty + 1) * 10;
-
-      /* Set the period value */
-      period = 1000 / (difficulty == EASY ? EASY_FPS
-          : (difficulty == MEDIUM ? MEDIUM_FPS : (difficulty == HARD ? HARD_FPS : RIDICULOUS_FPS)));
-    }
-
-    explosionId = soundPool.load(context, R.raw.explosion, 1);
-    fireId = soundPool.load(context, weapon == CANNON ? R.raw.cannon : (weapon == PHASER ? R.raw.phaser : R.raw.laser),
-        1);
-
-    loadAnimationSequence();
-  }
-
-  private void loadAnimationSequence()
-  {
-    Resources resources = context.getResources();
-
-    animationSequence[0] = BitmapFactory.decodeResource(resources, R.drawable.explode1);
-    animationSequence[1] = BitmapFactory.decodeResource(resources, R.drawable.explode2);
-    animationSequence[2] = BitmapFactory.decodeResource(resources, R.drawable.explode3);
-    animationSequence[3] = BitmapFactory.decodeResource(resources, R.drawable.explode4);
-  }
-
-  @Override
-  protected void onDraw(Canvas canvas)
-  {
-    super.onDraw(canvas);
-
-    if (droids != null)
-    {
-      /* Draw the droids */
-      for (Entity droid : droids)
-      {
-        droid.draw(canvas);
-      }
-
-      /* Animate the explosion */
-      Iterator<Animation> iterator = animationQueue.iterator();
-
-      while (iterator.hasNext())
-      {
-        Animation animation = iterator.next();
-
-        boolean remove = animation.draw(canvas, animationSequence);
-
-        if (remove)
-        {
-          iterator.remove();
-        }
-      }
-
-      if (running)
-      {
-        synchronized (this)
-        {
-          notifyAll();
-        }
-      }
-    }
-  }
-
-  @Override
-  protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight)
-  {
-    super.onSizeChanged(width, height, oldWidth, oldHeight);
+ht, oldWidth, oldHeight);
 
     this.width = width;
     this.height = height;
