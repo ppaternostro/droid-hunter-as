@@ -1,14 +1,14 @@
 package com.pasquasoft.android;
 
+import com.pasquasoft.android.dialog.SettingsDialog;
+import com.pasquasoft.android.util.Util;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-
-import com.pasquasoft.android.dialog.SettingsDialog;
-import com.pasquasoft.android.util.Util;
 
 public class Main extends Activity implements OnClickListener
 {
@@ -36,19 +36,23 @@ public class Main extends Activity implements OnClickListener
   {
     int id = view.getId();
 
-    switch (id)
+    if (id == R.id.newGame)
     {
-      case R.id.newGame:
-        startActivity(droidIntent);
-        break;
-      case R.id.settings:
-        new SettingsDialog(this);
-        break;
-      case R.id.about:
-      case R.id.howTo:
-        Util.messageDialog(this, id == R.id.about ? getString(R.string.title_about) : getString(R.string.label_how_to),
-            id == R.id.about ? getString(R.string.message_about) : getString(R.string.message_how_to), null);
-        break;
+      startActivity(droidIntent);
+    }
+    else if (id == R.id.settings)
+    {
+      new SettingsDialog(this);
+    }
+    else if (id == R.id.about || id == R.id.howTo)
+    {
+      Util.messageDialog(this,
+          id == R.id.about ? getString(R.string.title_about)
+              : getString(R.string.label_how_to),
+          id == R.id.about ? getString(R.string.message_about)
+              : getString(R.string.message_how_to),
+          null);
+
     }
   }
 }

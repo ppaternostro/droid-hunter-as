@@ -4,11 +4,9 @@
 	android:versionName="1.0">
     <supports-screens android:anyDensity="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="false" android:largeScreens="false" />
 
-<!--	<uses-sdk android:minSdkVersion="21" />-->
-
    	<application android:name=".DroidHunterApplication"
-		android:icon="@drawable/launcher" android:label="@string/droid_hunter" android:fullBackupOnly="true" android:allowBackup="true">
-		<activity android:name=".Main" android:label="@string/droid_hunter" android:exported="true"
+		android:supportsRtl="true" android:icon="@drawable/launcher" android:label="@string/droid_hunter" android:fullBackupOnly="true">
+		<activity android:name=".Main" android:exported="true"
 			android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation"
 			android:theme="@style/Theme.DroidHunter" android:launchMode="singleInstance">
 			<intent-filter>
@@ -17,7 +15,7 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".DroidHunter" android:label="@string/droid_hunter"
+		<activity android:name=".DroidHunter"
 			android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation"
 			android:launchMode="singleInstance">
 		</activity>

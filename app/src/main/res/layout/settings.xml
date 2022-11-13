@@ -139,21 +139,22 @@
             android:paddingTop="4dip">
 
             <Button
-                android:id="@+id/save"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="120dip"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/label_save"
-                android:textColor="#004D40" />
-
-            <Button
                 android:id="@+id/cancel"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/label_cancel"
+                android:textColor="#004D40" />
+
+
+            <Button
+                android:id="@+id/save"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/label_save"
                 android:textColor="#004D40" />
         </LinearLayout>
     </LinearLayout>
