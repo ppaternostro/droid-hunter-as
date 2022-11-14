@@ -1,13 +1,13 @@
 package com.pasquasoft.android.model;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Rect;
+import java.util.Random;
 
 import com.pasquasoft.android.sprite.Sprite;
 import com.pasquasoft.android.sprite.SpriteCache;
 
-import java.util.Random;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 
 public class Entity
 {

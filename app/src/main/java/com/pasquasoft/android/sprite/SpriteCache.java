@@ -1,10 +1,10 @@
 package com.pasquasoft.android.sprite;
 
+import java.util.HashMap;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import java.util.HashMap;
 
 /**
  * A class that caches <code>Sprite</code> references.

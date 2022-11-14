@@ -1,5 +1,12 @@
 package com.pasquasoft.android.dialog;
 
+import java.util.Locale;
+
+import com.pasquasoft.android.DroidHunterApplication;
+import com.pasquasoft.android.R;
+import com.pasquasoft.android.adapter.DroidArrayAdapter;
+import com.pasquasoft.android.util.Util;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,13 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.pasquasoft.android.DroidHunterApplication;
-import com.pasquasoft.android.R;
-import com.pasquasoft.android.adapter.DroidArrayAdapter;
-import com.pasquasoft.android.util.Util;
-
-import java.util.Locale;
 
 public class SettingsDialog extends Dialog implements OnClickListener
 {

@@ -1,5 +1,7 @@
 package com.pasquasoft.android.adapter;
 
+import com.pasquasoft.android.Droid;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import com.pasquasoft.android.Droid;
 
 public class DroidArrayAdapter extends ArrayAdapter<Droid>
 {

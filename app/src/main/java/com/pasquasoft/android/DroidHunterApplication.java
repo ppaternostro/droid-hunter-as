@@ -5,11 +5,11 @@ import static com.pasquasoft.android.view.CanvasView.HARD_FPS;
 import static com.pasquasoft.android.view.CanvasView.MEDIUM_FPS;
 import static com.pasquasoft.android.view.CanvasView.RIDICULOUS_FPS;
 
-import android.app.Application;
+import java.util.HashMap;
 
 import com.pasquasoft.android.model.Level;
 
-import java.util.HashMap;
+import android.app.Application;
 
 public class DroidHunterApplication extends Application
 {
