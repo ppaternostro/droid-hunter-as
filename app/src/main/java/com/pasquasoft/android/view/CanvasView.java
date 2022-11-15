@@ -73,7 +73,7 @@ public class CanvasView extends View implements Runnable
     super(context, as);
 
     AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
+        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
 
     soundPool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(20).build();
 
@@ -97,12 +97,12 @@ public class CanvasView extends View implements Runnable
 
       /* Set the period value */
       period = 1000 / (difficulty == EASY ? EASY_FPS
-              : (difficulty == MEDIUM ? MEDIUM_FPS : (difficulty == HARD ? HARD_FPS : RIDICULOUS_FPS)));
+          : (difficulty == MEDIUM ? MEDIUM_FPS : (difficulty == HARD ? HARD_FPS : RIDICULOUS_FPS)));
     }
 
     explosionId = soundPool.load(context, R.raw.explosion, 1);
     fireId = soundPool.load(context, weapon == CANNON ? R.raw.cannon : (weapon == PHASER ? R.raw.phaser : R.raw.laser),
-            1);
+        1);
 
     loadAnimationSequence();
   }
@@ -204,40 +204,37 @@ public class CanvasView extends View implements Runnable
 
   private void drainQueue()
   {
-    new Thread() {
-      public void run()
+    new Thread(() -> {
+      long timeDiff;
+      long sleepTime;
+      long beforeTime;
+
+      while (animationQueue.size() != 0)
       {
-        long timeDiff;
-        long sleepTime;
-        long beforeTime;
+        beforeTime = System.currentTimeMillis();
 
-        while (animationQueue.size() != 0)
+        postInvalidate();
+
+        timeDiff = System.currentTimeMillis() - beforeTime;
+
+        sleepTime = period - timeDiff;
+
+        if (sleepTime <= 0)
         {
-          beforeTime = System.currentTimeMillis();
+          sleepTime = 5;
+        }
 
-          postInvalidate();
-
-          timeDiff = System.currentTimeMillis() - beforeTime;
-
-          sleepTime = period - timeDiff;
-
-          if (sleepTime <= 0)
-          {
-            sleepTime = 5;
-          }
-
-          try
-          {
-            /* Don't hog the CPU! Can't we all just get along? */
-            Thread.sleep(sleepTime);
-          }
-          catch (InterruptedException ie)
-          {
-            /* Nothing to see here. Move along. */
-          }
+        try
+        {
+          /* Don't hog the CPU! Can't we all just get along? */
+          Thread.sleep(sleepTime);
+        }
+        catch (InterruptedException ie)
+        {
+          /* Nothing to see here. Move along. */
         }
       }
-    }.start();
+    }).start();
   }
 
   public void freeResources()
