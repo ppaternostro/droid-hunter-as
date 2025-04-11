@@ -300,7 +300,7 @@ public class DroidHunter extends Activity
         }
 
         statusTimer = new Timer();
-        statusTimer.scheduleAtFixedRate(new StatusTask(), 0, 1000);
+        statusTimer.schedule(new StatusTask(), 0, 1000);
 
         gameTimer = new Timer();
         gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + (gameTimeLimit = gameTimeLimit())));
@@ -355,7 +355,7 @@ public class DroidHunter extends Activity
 
     /* Canceled timers cannot schedule new tasks */
     statusTimer = new java.util.Timer();
-    statusTimer.scheduleAtFixedRate(new StatusTask(), 0, 1000);
+    statusTimer.schedule(new StatusTask(), 0, 1000);
 
     gameTimer = new java.util.Timer();
     gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + gameTimeLimit));
