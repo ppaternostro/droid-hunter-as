@@ -44,5 +44,5 @@ This simple game is functional and pretty stable. The use of the Java **Thread**
 occasionally cause some anomalous issues in **multilevel** mode. At some point I need to update the code 
 to address the anomalies. At some point. :-)
 
-### Game Play (Video)
-[DroidHunter](https://github.com/user-attachments/assets/856ccf2b-b6e9-4c7e-879b-d994153f7c14)
+### Game Play (Screen Recording Video)
+[Droid Hunter Screen Recording](https://github.com/user-attachments/assets/ebe623f0-2218-4c5b-8f05-a83339aa48f3)
