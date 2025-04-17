@@ -2,9 +2,9 @@
 An Android based game.
 
 ### Background
-I created this Android based game as a way to learn about the Android platform. It was
-created in 2010 using the Eclipse IDE with the aid of the [Android Development Tools (ADT) 
-for Eclipse](https://marketplace.eclipse.org/content/android-development-tools-eclipse) 
+I created this Android based game as a way to learn about the Android platform. It is a 
+variation of my Java based [alien-hunter](https://github.com/ppaternostro/alien-hunter) game. The game was created in 2010 using the Eclipse 
+IDE with the aid of the [Android Development Tools (ADT) for Eclipse](https://marketplace.eclipse.org/content/android-development-tools-eclipse) 
 plugin. The last Eclipse version supported by the ADT plugin is **2018-09 (4.9)**. Later versions
 of Eclipse typically used the [Andmore: Development Tools for Android™](https://marketplace.eclipse.org/content/andmore-development-tools-android%E2%84%A2) 
 plugin to develop Android applications. However, the last supported Eclipse version for the Andmore plugin is **2021-03 (4.19)**.
