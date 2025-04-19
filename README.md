@@ -11,7 +11,7 @@ plugin to develop Android applications. However, the last supported Eclipse vers
 
 Google officially dropped support for Eclipse ADT in 2015, making [Android Studio](https://developer.android.com/studio) the only 
 officially supported IDE for Android development. I subsequently migrated this project under the
-Android Studio IDE. Luckily, Android Studio provided a specialized wizard that imported an Eclipse
+Android Studio IDE. Luckily, Android Studio provides a specialized wizard that imports an Eclipse
 ADT based Android project to the new directory structure required by Android Studio. Note, this project's
 name has the suffix **-as** to denote it uses the Android Studio folder structure. You should
 also be able to use the [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/other.html) for Android development as it provides 
