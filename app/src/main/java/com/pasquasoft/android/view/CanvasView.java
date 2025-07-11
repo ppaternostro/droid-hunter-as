@@ -22,6 +22,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 public class CanvasView extends View implements Runnable
 {
   private static final String PREFS = "DroidHunter";
@@ -118,7 +120,7 @@ public class CanvasView extends View implements Runnable
   }
 
   @Override
-  protected void onDraw(Canvas canvas)
+  protected void onDraw(@NonNull Canvas canvas)
   {
     super.onDraw(canvas);
 
@@ -209,7 +211,7 @@ public class CanvasView extends View implements Runnable
       long sleepTime;
       long beforeTime;
 
-      while (animationQueue.size() != 0)
+      while (!animationQueue.isEmpty())
       {
         beforeTime = System.currentTimeMillis();
 
