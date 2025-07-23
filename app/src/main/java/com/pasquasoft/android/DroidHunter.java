@@ -122,7 +122,7 @@ public class DroidHunter extends Activity
     if (muted)
     {
       /* Set mute off */
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, false);
+      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
     }
   }
 
@@ -138,7 +138,7 @@ public class DroidHunter extends Activity
     if (muted)
     {
       /* Set mute on */
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, true);
+      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
     }
   }
 
