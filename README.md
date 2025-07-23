@@ -39,10 +39,5 @@ is automatically signed with a debug key provided by the SDK tools which is the 
 You will need to [sideload and install](https://www.howtogeek.com/313433/how-to-sideload-apps-on-android/)
 the **app-debug.apk** file to your mobile device.
 
-### Caveat Emptor
-This simple game is functional and pretty stable. The use of the Java **Thread** class does 
-occasionally cause some anomalous issues in **multilevel** mode. At some point I need to update the code 
-to address the anomalies. At some point. :-)
-
 ### Game Play (Screen Recording Video)
 [Droid Hunter Screen Recording](https://github.com/user-attachments/assets/ebe623f0-2218-4c5b-8f05-a83339aa48f3)
