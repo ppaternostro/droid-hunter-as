@@ -121,8 +121,7 @@ public class DroidHunter extends Activity
      */
     if (muted)
     {
-      /* Set mute off */
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+      unmute();
     }
   }
 
@@ -137,8 +136,8 @@ public class DroidHunter extends Activity
      */
     if (muted)
     {
-      /* Set mute on */
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+      /* Mute sound */
+      mute();
     }
   }
 
@@ -230,7 +229,7 @@ public class DroidHunter extends Activity
     }
     else if (itemId == R.id.sound_off)
     {
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+      mute();
       item.setVisible(false);
       menu.getItem(SOUND_ON).setVisible(true);
       muted = true;
@@ -238,7 +237,7 @@ public class DroidHunter extends Activity
     }
     else if (itemId == R.id.sound_on)
     {
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+      unmute();
       item.setVisible(false);
       menu.getItem(SOUND_OFF).setVisible(true);
       muted = false;
@@ -436,6 +435,20 @@ public class DroidHunter extends Activity
 
     Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter), getString(R.string.message_failed),
         dialogListener);
+  }
+
+  private void unmute()
+  {
+    AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+    // Get max volume
+    int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+    // Set to max volume
+    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+  }
+
+  private void mute()
+  {
+    ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
   }
 
   private class GameTask extends TimerTask
