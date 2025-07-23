@@ -121,7 +121,10 @@ public class DroidHunter extends Activity
      */
     if (muted)
     {
-      unmute();
+      /*
+       * Delay the unmute in case any sound is still playing.
+       */
+      new Handler().postDelayed(this::unmute, 500);
     }
   }
 
