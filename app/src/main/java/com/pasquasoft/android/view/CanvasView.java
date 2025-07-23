@@ -1,6 +1,5 @@
 package com.pasquasoft.android.view;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -54,7 +53,7 @@ public class CanvasView extends View implements Runnable
   /* Performance tip: favor virtual over interface */
   private final ConcurrentLinkedQueue<Animation> animationQueue = new ConcurrentLinkedQueue<>();
 
-  private ArrayList<Entity> droids;
+  private ConcurrentLinkedQueue<Entity> droids;
 
   private Thread thread;
 
@@ -182,7 +181,7 @@ public class CanvasView extends View implements Runnable
 
   public void start(int entities, int imageResourceId)
   {
-    droids = new ArrayList<>(entities);
+    droids = new ConcurrentLinkedQueue<>();
 
     /* Load the entities */
     for (int i = 0; i < entities; i++)
@@ -236,6 +235,9 @@ public class CanvasView extends View implements Runnable
           /* Nothing to see here. Move along. */
         }
       }
+
+      postInvalidate();
+
     }).start();
   }
 
