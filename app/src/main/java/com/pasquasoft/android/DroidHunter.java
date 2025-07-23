@@ -230,7 +230,7 @@ public class DroidHunter extends Activity
     }
     else if (itemId == R.id.sound_off)
     {
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, true);
+      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
       item.setVisible(false);
       menu.getItem(SOUND_ON).setVisible(true);
       muted = true;
@@ -238,7 +238,7 @@ public class DroidHunter extends Activity
     }
     else if (itemId == R.id.sound_on)
     {
-      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_MUSIC, false);
+      ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
       item.setVisible(false);
       menu.getItem(SOUND_OFF).setVisible(true);
       muted = false;
