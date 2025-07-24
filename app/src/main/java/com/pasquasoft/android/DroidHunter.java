@@ -445,8 +445,8 @@ public class DroidHunter extends Activity
     AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
     // Get max volume
     int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-    // Set to max volume
-    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+    // Set volume to half max
+    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume / 2, 0);
   }
 
   private void mute()
