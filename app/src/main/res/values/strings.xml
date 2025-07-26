@@ -51,7 +51,7 @@
     <string name="message_failed">Better luck next time!</string>
     <string name="message_success">Congratulations! You saved the universe!</string>
     <string name="title_about">About Droid Hunter</string>
-    <string name="message_about">Droid Hunter\nPasquaSoft L.L.C.\nCopyright© 2010–2021\nImages by Aha-Soft\nhttp://www.aha-soft.com</string>
+    <string name="message_about">Droid Hunter\nPasquaSoft L.L.C.\nCopyright© 2010–2025\nImages by Aha-Soft\nhttp://www.aha-soft.com</string>
     <string name="mode_single">Single</string>
     <string name="mode_multilevel">Multilevel</string>
     <string name="sound_on">On</string>
