@@ -16,9 +16,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -27,12 +24,6 @@ import android.widget.Toast;
 public class DroidHunter extends Activity
 {
   private static final String PREFS = "DroidHunter";
-
-  /* Zero offset, positional indices - see menu.xml */
-  private static final int RESUME = 0;
-  private static final int PAUSE = 1;
-  private static final int SOUND_OFF = 3;
-  private static final int SOUND_ON = 4;
 
   private static final int SINGLE = 0;
   private static final int IRON = 10;
@@ -55,8 +46,6 @@ public class DroidHunter extends Activity
 
   private Toast toast;
 
-  private Menu menu;
-
   private DroidHunterApplication application;
 
   private int mode;
@@ -65,7 +54,6 @@ public class DroidHunter extends Activity
   private long gameTimeLimit;
 
   private boolean timedOut;
-  private boolean paused;
   private boolean muted;
   private boolean keyCodeBack;
 
@@ -163,10 +151,7 @@ public class DroidHunter extends Activity
   {
     super.onRestart();
 
-    if (!paused)
-    {
-      resumeGame();
-    }
+    resumeGame();
   }
 
   @Override
@@ -178,73 +163,6 @@ public class DroidHunter extends Activity
     {
       pauseGame();
     }
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    MenuInflater inflater = getMenuInflater();
-
-    inflater.inflate(R.menu.menu, menu);
-
-    this.menu = menu;
-
-    if (muted)
-    {
-      menu.getItem(SOUND_OFF).setVisible(false);
-      menu.getItem(SOUND_ON).setVisible(true);
-    }
-
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    boolean consume = false;
-
-    int itemId = item.getItemId();
-
-    if (itemId == R.id.stop)
-    {
-      stopGame();
-      finish();
-      consume = true;
-    }
-    else if (itemId == R.id.pause)
-    {
-      pauseGame();
-      item.setVisible(false);
-      menu.getItem(RESUME).setVisible(true);
-      paused = true;
-      consume = true;
-    }
-    else if (itemId == R.id.resume)
-    {
-      resumeGame();
-      item.setVisible(false);
-      menu.getItem(PAUSE).setVisible(true);
-      paused = false;
-      consume = true;
-    }
-    else if (itemId == R.id.sound_off)
-    {
-      mute();
-      item.setVisible(false);
-      menu.getItem(SOUND_ON).setVisible(true);
-      muted = true;
-      consume = true;
-    }
-    else if (itemId == R.id.sound_on)
-    {
-      unmute();
-      item.setVisible(false);
-      menu.getItem(SOUND_OFF).setVisible(true);
-      muted = false;
-      consume = true;
-    }
-
-    return consume;
   }
 
   @Override

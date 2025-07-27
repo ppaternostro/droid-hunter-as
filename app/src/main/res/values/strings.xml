@@ -89,9 +89,4 @@
     <string name="spinner_prompt_weapon">Choose weapon sound</string>
     <string name="spinner_prompt_difficulty">Choose difficulty level</string>
     <string name="message_how_to">Touch the droids to destroy them in the allotted time. Apply game settings including droid model, game mode, number of droids, time limit, difficulty level and weapon sound.</string>
-    <string name="menu_resume">Resume</string>
-    <string name="menu_pause">Pause</string>
-    <string name="menu_stop">Stop</string>
-    <string name="menu_sound_off">Sound Off</string>
-    <string name="menu_sound_on">Sound On</string>
 </resources>
