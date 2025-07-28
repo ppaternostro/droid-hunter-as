@@ -9,7 +9,7 @@ import android.content.DialogInterface.OnClickListener;
 
 public class Util
 {
-  public static void messageDialog(Context context, String title, String message, OnClickListener listener)
+  public static AlertDialog messageDialog(Context context, String title, String message, OnClickListener listener)
   {
     Builder builder = new AlertDialog.Builder(context);
 
@@ -19,6 +19,6 @@ public class Util
     builder.setMessage(message);
     builder.setPositiveButton(context.getString(R.string.label_ok), listener);
 
-    builder.show();
+    return builder.show();
   }
 }

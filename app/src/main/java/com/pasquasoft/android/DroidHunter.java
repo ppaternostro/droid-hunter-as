@@ -1,6 +1,8 @@
 package com.pasquasoft.android;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,6 +11,7 @@ import com.pasquasoft.android.view.CanvasView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
@@ -59,7 +62,53 @@ public class DroidHunter extends Activity
 
   private final Runnable statusAreaRunnable = this::updateStatusArea;
   private final Runnable gameTimerRunnable = this::displayMessage;
-  private final OnClickListener dialogListener = (dialog, which) -> finish();
+
+  private final List<AlertDialog> alerts = new ArrayList<>();
+
+  private final OnClickListener dialogListener = (dialog, which) -> {
+    dialog.dismiss();
+    finish();
+  };
+
+  @Override
+  protected void onPause()
+  {
+    super.onPause();
+
+    /*
+     * Unmute a muted stream on pause event.
+     */
+    if (muted)
+    {
+      /*
+       * Delay the unmute in case any sound is still playing.
+       */
+      new Handler().postDelayed(this::unmute, 1000);
+    }
+
+    if (isFinishing())
+    {
+      // Prevent window leaks
+      alerts.forEach(dialog -> {
+        if (dialog.isShowing())
+        {
+          dialog.dismiss();
+        }
+      });
+
+      if (!canvasView.isStopped())
+      {
+        stopGame();
+      }
+
+      application.resetLevel();
+      canvasView.freeResources();
+    }
+    else
+    {
+      pauseGame();
+    }
+  }
 
   @SuppressLint("ShowToast")
   @Override
@@ -92,25 +141,6 @@ public class DroidHunter extends Activity
     count = findViewById(R.id.count);
     ratio = findViewById(R.id.ratio);
     canvasView = findViewById(R.id.canvasView);
-
-    startGame();
-  }
-
-  @Override
-  protected void onPause()
-  {
-    super.onPause();
-
-    /*
-     * Unmute a muted stream on pause event.
-     */
-    if (muted)
-    {
-      /*
-       * Delay the unmute in case any sound is still playing.
-       */
-      new Handler().postDelayed(this::unmute, 500);
-    }
   }
 
   @Override
@@ -127,41 +157,14 @@ public class DroidHunter extends Activity
       /* Mute sound */
       mute();
     }
-  }
 
-  @Override
-  protected void onDestroy()
-  {
-    super.onDestroy();
-
-    if (!isFinishing())
+    if (canvasView.isPaused())
     {
-      stopGame();
+      resumeGame();
     }
     else
     {
-      application.resetLevel();
-    }
-
-    canvasView.freeResources();
-  }
-
-  @Override
-  protected void onRestart()
-  {
-    super.onRestart();
-
-    resumeGame();
-  }
-
-  @Override
-  protected void onStop()
-  {
-    super.onStop();
-
-    if (!isFinishing())
-    {
-      pauseGame();
+      startGame();
     }
   }
 
@@ -230,8 +233,15 @@ public class DroidHunter extends Activity
    */
   private void stopGame()
   {
-    gameTimer.cancel();
-    statusTimer.cancel();
+    if (gameTimer != null)
+    {
+      gameTimer.cancel();
+    }
+
+    if (statusTimer != null)
+    {
+      statusTimer.cancel();
+    }
 
     gameTimerHandler.removeCallbacks(gameTimerRunnable);
     statusAreaHandler.removeCallbacks(statusAreaRunnable);
@@ -320,8 +330,8 @@ public class DroidHunter extends Activity
 
       if (mode == SINGLE || application.getCurrentLevel().getName().equals(getString(R.string.label_level_20)))
       {
-        Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter), getString(R.string.message_success),
-            dialogListener);
+        alerts.add(Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter),
+            getString(R.string.message_success), dialogListener));
       }
       else
       {
@@ -351,8 +361,8 @@ public class DroidHunter extends Activity
 
     stopGame();
 
-    Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter), getString(R.string.message_failed),
-        dialogListener);
+    alerts.add(Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter),
+        getString(R.string.message_failed), dialogListener));
   }
 
   private void unmute()

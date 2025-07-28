@@ -49,6 +49,8 @@ public class CanvasView extends View implements Runnable
   private double hits;
 
   private boolean running;
+  private boolean paused;
+  private boolean stopped;
 
   /* Performance tip: favor virtual over interface */
   private final ConcurrentLinkedQueue<Animation> animationQueue = new ConcurrentLinkedQueue<>();
@@ -170,6 +172,16 @@ public class CanvasView extends View implements Runnable
     return running;
   }
 
+  public boolean isPaused()
+  {
+    return paused;
+  }
+
+  public boolean isStopped()
+  {
+    return stopped;
+  }
+
   public void start(Level level, int imageResourceId)
   {
     increment = level.getIncrement();
@@ -196,11 +208,16 @@ public class CanvasView extends View implements Runnable
 
   public void stop()
   {
-    droids.clear();
+    if (droids != null)
+    {
+      droids.clear();
+    }
 
     pause();
 
     drainQueue();
+
+    stopped = true;
   }
 
   private void drainQueue()
@@ -288,6 +305,8 @@ public class CanvasView extends View implements Runnable
     thread = null;
 
     running = false;
+
+    paused = true;
   }
 
   public void resume()
@@ -295,6 +314,8 @@ public class CanvasView extends View implements Runnable
     if (thread == null)
     {
       running = true;
+
+      paused = false;
 
       thread = new Thread(this);
 

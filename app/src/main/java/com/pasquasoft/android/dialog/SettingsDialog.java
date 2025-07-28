@@ -189,7 +189,7 @@ public class SettingsDialog extends Dialog implements OnClickListener
       else
       {
         Util.messageDialog(context, context.getString(R.string.title_error_dialog),
-            context.getString(R.string.message_time_limit_error), null);
+            context.getString(R.string.message_time_limit_error), (dialog, which) -> dialog.dismiss());
       }
     }
     else if (view == cancel)
@@ -200,6 +200,6 @@ public class SettingsDialog extends Dialog implements OnClickListener
 
   private boolean isValid(String droids)
   {
-    return !droids.equals("0") && !droids.equals("00") && !droids.equals("");
+    return !droids.equals("0") && !droids.equals("00") && !droids.isEmpty();
   }
 }

@@ -47,7 +47,8 @@ public class Main extends Activity implements OnClickListener
     else if (id == R.id.about || id == R.id.howTo)
     {
       Util.messageDialog(this, id == R.id.about ? getString(R.string.title_about) : getString(R.string.label_how_to),
-          id == R.id.about ? getString(R.string.message_about) : getString(R.string.message_how_to), null);
+          id == R.id.about ? getString(R.string.message_about) : getString(R.string.message_how_to),
+          (dialog, which) -> dialog.dismiss());
     }
   }
 }
