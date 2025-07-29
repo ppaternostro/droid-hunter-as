@@ -13,7 +13,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="3dip"
@@ -29,7 +28,6 @@
             android:prompt="@string/spinner_prompt_model" />
 
         <TextView
-            android:id="@+id/txtMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="3dip"
@@ -45,7 +43,6 @@
             android:prompt="@string/spinner_prompt_mode" />
 
         <TextView
-            android:id="@+id/txtSoundMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="3dip"
@@ -61,7 +58,6 @@
             android:prompt="@string/spinner_prompt_sound_mode" />
 
         <TextView
-            android:id="@+id/txtWeapon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="3dip"
@@ -77,7 +73,6 @@
             android:prompt="@string/spinner_prompt_weapon" />
 
         <TextView
-            android:id="@+id/txtDifficultyLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="3dip"
@@ -93,7 +88,6 @@
             android:prompt="@string/spinner_prompt_difficulty" />
 
         <TextView
-            android:id="@+id/txtDroidNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:labelFor="@+id/droids"
@@ -113,7 +107,6 @@
             android:singleLine="true" />
 
         <TextView
-            android:id="@+id/txtTimeLimit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:labelFor="@+id/timeLimit"
