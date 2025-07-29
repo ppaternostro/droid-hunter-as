@@ -184,11 +184,11 @@ public class CanvasView extends View implements Runnable
 
   public void start(Level level, int imageResourceId)
   {
-    increment = level.getIncrement();
+    increment = level.increment();
 
-    period = 1000 / level.getFramesPerSecond();
+    period = 1000 / level.framesPerSecond();
 
-    start(level.getEntities(), imageResourceId);
+    start(level.entities(), imageResourceId);
   }
 
   public void start(int entities, int imageResourceId)

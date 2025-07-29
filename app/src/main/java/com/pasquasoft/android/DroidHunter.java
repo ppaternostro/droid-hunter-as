@@ -197,7 +197,7 @@ public class DroidHunter extends Activity
    */
   private void startGame()
   {
-    toast.setText(mode == SINGLE ? getString(R.string.label_ready) : application.getCurrentLevel().getName());
+    toast.setText(mode == SINGLE ? getString(R.string.label_ready) : application.getCurrentLevel().name());
 
     toast.show();
 
@@ -313,7 +313,7 @@ public class DroidHunter extends Activity
   {
     String timeLimit = mode == SINGLE
         ? prefs.getString(getString(R.string.prefs_time_limit_key), getString(R.string.prefs_time_limit_default))
-        : application.getCurrentLevel().getTimeLimit();
+        : application.getCurrentLevel().timeLimit();
 
     /* Parse the string */
     String[] parts = timeLimit.split(getString(R.string.time_separator));
@@ -334,7 +334,7 @@ public class DroidHunter extends Activity
     {
       stopGame();
 
-      if (mode == SINGLE || application.getCurrentLevel().getName().equals(getString(R.string.label_level_20)))
+      if (mode == SINGLE || application.getCurrentLevel().name().equals(getString(R.string.label_level_20)))
       {
         alerts.add(Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter),
             getString(R.string.message_success), dialogListener));
