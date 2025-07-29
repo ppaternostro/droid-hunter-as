@@ -202,7 +202,7 @@ public class DroidHunter extends Activity
     toast.show();
 
     new Handler().postDelayed(() -> {
-      /**
+      /*
        * This code is scheduled to run after a delay. In the meantime the user
        * may have hit the back button. In that situation we don't start the game
        * since the user's intent is to maneuver back to the main screen.
