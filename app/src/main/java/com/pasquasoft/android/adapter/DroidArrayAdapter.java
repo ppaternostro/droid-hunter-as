@@ -33,8 +33,9 @@ public class DroidArrayAdapter extends ArrayAdapter<Droid>
     inflater = LayoutInflater.from(context);
   }
 
+  @NonNull
   @Override
-  public View getView(int position, View convertView, ViewGroup parent)
+  public View getView(int position, View convertView, @NonNull ViewGroup parent)
   {
     return getCustomView(position, parent);
   }
