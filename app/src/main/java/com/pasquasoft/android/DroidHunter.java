@@ -83,7 +83,7 @@ public class DroidHunter extends Activity
       /*
        * Delay the unmute in case any sound is still playing.
        */
-      new Handler().postDelayed(this::unmute, 1000);
+      new Handler().postDelayed(this::unmute, 2000);
     }
 
     if (isFinishing())
@@ -202,11 +202,10 @@ public class DroidHunter extends Activity
     toast.show();
 
     new Handler().postDelayed(() -> {
-      /*
-       * This code is scheduled to run after a two second delay. In the meantime
-       * the user may have hit the back button. In that situation we don't start
-       * the game since the user's intent is to maneuver back to the main
-       * screen.
+      /**
+       * This code is scheduled to run after a delay. In the meantime the user
+       * may have hit the back button. In that situation we don't start the game
+       * since the user's intent is to maneuver back to the main screen.
        */
       if (!keyCodeBack)
       {
@@ -225,7 +224,7 @@ public class DroidHunter extends Activity
         gameTimer = new Timer();
         gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + (gameTimeLimit = gameTimeLimit())));
       }
-    }, 2000);
+    }, 200);
   }
 
   /**
@@ -265,8 +264,15 @@ public class DroidHunter extends Activity
   private void pauseGame()
   {
     /* Cancel timers */
-    gameTimer.cancel();
-    statusTimer.cancel();
+    if (gameTimer != null)
+    {
+      gameTimer.cancel();
+    }
+
+    if (statusTimer != null)
+    {
+      statusTimer.cancel();
+    }
 
     /* Pause the game */
     canvasView.pause();
