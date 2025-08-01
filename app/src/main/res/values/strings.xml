@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="droid_hunter">Droid Hunter</string>
-    <string name="android_model">Android Model</string>
     <string name="title_settings">Settings</string>
     <string name="title_error_dialog">Error</string>
     <string name="message_time_limit_error">Invalid number of droids or time limit. Time limit must be in the form mm:ss and cannot exceed 59:59</string>

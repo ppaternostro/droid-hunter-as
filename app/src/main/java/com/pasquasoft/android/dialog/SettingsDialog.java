@@ -77,7 +77,7 @@ public class SettingsDialog extends Dialog implements OnClickListener
     cancel = findViewById(R.id.cancel);
 
     /* Set 'model' spinner values */
-    DroidArrayAdapter modelAdapter = new DroidArrayAdapter(context, R.layout.row, R.id.row_text, R.id.row_icon,
+    DroidArrayAdapter modelAdapter = new DroidArrayAdapter(context, R.layout.row, R.id.row_text,
         ((DroidHunterApplication) ((Activity) context).getApplication()).getDroids());
     modelAdapter.setDropDownViewResource(R.layout.row);
     droidModel.setAdapter(modelAdapter);
