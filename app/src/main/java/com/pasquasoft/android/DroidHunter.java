@@ -18,6 +18,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -83,7 +84,7 @@ public class DroidHunter extends Activity
       /*
        * Delay the unmute in case any sound is still playing.
        */
-      new Handler().postDelayed(this::unmute, 2000);
+      new Handler(Looper.getMainLooper()).postDelayed(this::unmute, 2000);
     }
 
     if (isFinishing())
@@ -126,8 +127,8 @@ public class DroidHunter extends Activity
 
     application = (DroidHunterApplication) getApplication();
 
-    gameTimerHandler = new Handler();
-    statusAreaHandler = new Handler();
+    gameTimerHandler = new Handler(Looper.getMainLooper());
+    statusAreaHandler = new Handler(Looper.getMainLooper());
 
     prefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE);
 
@@ -201,7 +202,7 @@ public class DroidHunter extends Activity
 
     toast.show();
 
-    new Handler().postDelayed(() -> {
+    new Handler(Looper.getMainLooper()).postDelayed(() -> {
       /*
        * This code is scheduled to run after a delay. In the meantime the user
        * may have hit the back button. In that situation we don't start the game
