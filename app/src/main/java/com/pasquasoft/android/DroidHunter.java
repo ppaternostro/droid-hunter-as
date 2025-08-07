@@ -3,6 +3,7 @@ package com.pasquasoft.android;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,8 +21,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,9 +118,8 @@ public class DroidHunter extends Activity
 
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-    /* Make full screen by removing title and action bar */
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    /* Make full screen by removing action bar */
+    Objects.requireNonNull(getActionBar()).hide();
 
     toast = Toast.makeText(this, null, Toast.LENGTH_SHORT);
 
