@@ -14,11 +14,11 @@ public class Entity
   private static final Random randomGenerator = new Random();
 
   private final int increment;
-  private final int boundsWidth;
-  private final int boundsHeight;
   private final int spriteWidth;
   private final int spriteHeight;
 
+  private int boundsWidth;
+  private int boundsHeight;
   private int xIncrement;
   private int yIncrement;
 
@@ -31,8 +31,7 @@ public class Entity
     int derivedX = randomGenerator.nextInt(boundsWidth + 1);
     int derivedY = randomGenerator.nextInt(boundsHeight + 1);
 
-    this.boundsWidth = boundsWidth;
-    this.boundsHeight = boundsHeight;
+    setBounds(boundsHeight, boundsWidth);
     this.xIncrement = this.yIncrement = this.increment = increment;
 
     sprite = SpriteCache.getInstance().getSprite(ref, context);
@@ -94,5 +93,26 @@ public class Entity
   public boolean isHit(int x, int y)
   {
     return rectangle.contains(x, y);
+  }
+
+  public void setBounds(int boundsHeight, int boundsWidth)
+  {
+    this.boundsHeight = boundsHeight;
+    this.boundsWidth = boundsWidth;
+  }
+
+  /** @noinspection SuspiciousNameCombination */
+  public void swapAxisIncrements()
+  {
+    int swappedY = xIncrement;
+
+    xIncrement = yIncrement;
+    yIncrement = swappedY;
+  }
+
+  /** @noinspection SuspiciousNameCombination */
+  public void swapRectangleCoordinates()
+  {
+    rectangle.set(rectangle.top, rectangle.left, rectangle.bottom, rectangle.right);
   }
 }

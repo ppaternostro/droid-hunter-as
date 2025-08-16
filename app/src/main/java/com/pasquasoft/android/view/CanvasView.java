@@ -414,4 +414,14 @@ public class CanvasView extends View implements Runnable
 
     return false;
   }
+
+  public void reorientDroids()
+  {
+    for (Entity droid : droids)
+    {
+      droid.setBounds(height, width);
+      droid.swapAxisIncrements();
+      droid.swapRectangleCoordinates();
+    }
+  }
 }

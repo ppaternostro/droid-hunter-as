@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,8 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 public class DroidHunter extends Activity
 {
@@ -69,6 +72,18 @@ public class DroidHunter extends Activity
     dialog.dismiss();
     finish();
   };
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration config)
+  {
+    super.onConfigurationChanged(config);
+
+    if (config.orientation == Configuration.ORIENTATION_LANDSCAPE
+        || config.orientation == Configuration.ORIENTATION_PORTRAIT)
+    {
+      new Handler(Looper.getMainLooper()).postDelayed(() -> canvasView.reorientDroids(), 100);
+    }
+  }
 
   @Override
   protected void onPause()

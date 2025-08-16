@@ -7,7 +7,7 @@
    	<application android:name=".DroidHunterApplication"
 		android:supportsRtl="true" android:icon="@drawable/launcher" android:label="@string/droid_hunter" android:fullBackupOnly="true">
 		<activity android:name=".Main" android:exported="true"
-			android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout"
 			android:theme="@style/Theme.DroidHunter" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -16,7 +16,7 @@
 		</activity>
 
 		<activity android:name=".DroidHunter"
-			android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation" >
+			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout" >
 		</activity>
 	</application>	
 
