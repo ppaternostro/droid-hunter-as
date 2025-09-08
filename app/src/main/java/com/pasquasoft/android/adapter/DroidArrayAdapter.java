@@ -48,8 +48,8 @@ public class DroidArrayAdapter extends ArrayAdapter<Droid>
 
     TextView textView = row.findViewById(textViewResourceId);
 
-    textView.setText(droids[position].getTextResourceId());
-    textView.setCompoundDrawablesWithIntrinsicBounds(droids[position].getImageResourceId(), 0, 0, 0);
+    textView.setText(droids[position].textResourceId());
+    textView.setCompoundDrawablesWithIntrinsicBounds(droids[position].imageResourceId(), 0, 0, 0);
 
     return row;
   }

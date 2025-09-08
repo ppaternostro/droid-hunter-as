@@ -225,11 +225,11 @@ public class DroidHunter extends Activity
       {
         if (mode == SINGLE)
         {
-          canvasView.start(gameDroids(), application.getDroids()[model].getImageResourceId());
+          canvasView.start(gameDroids(), application.getDroids()[model].imageResourceId());
         }
         else
         {
-          canvasView.start(application.getCurrentLevel(), application.getDroids()[model].getImageResourceId());
+          canvasView.start(application.getCurrentLevel(), application.getDroids()[model].imageResourceId());
         }
 
         statusTimer = new Timer();
