@@ -275,26 +275,6 @@ public class CanvasView extends View implements Runnable
     return (int) (hits != 0 ? (hits / attempts) * 100 : 0);
   }
 
-  public double getHits()
-  {
-    return hits;
-  }
-
-  public void setHits(double hits)
-  {
-    this.hits = hits;
-  }
-
-  public double getAttempts()
-  {
-    return attempts;
-  }
-
-  public void setAttempts(double attempts)
-  {
-    this.attempts = attempts;
-  }
-
   public void pause()
   {
     if (thread != null)
