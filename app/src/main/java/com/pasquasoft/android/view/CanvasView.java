@@ -23,6 +23,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+/** @noinspection BusyWait */
 public class CanvasView extends View implements Runnable
 {
   private static final String PREFS = "DroidHunter";
