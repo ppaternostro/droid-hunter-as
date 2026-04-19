@@ -31,7 +31,7 @@ After a successful build, navigate to the below folder structure under the proje
 
 An **app-debug.apk** file should be available. An APK (Android Package Kit) file is the file format 
 for applications used on the Android operating system. An APK file contains all the data an 
-application needs, including all of the program's code, assets and resources. Android applications
+application needs, including all the program's code, assets and resources. Android applications
 must be signed with a certificate before you can deploy your application to a device. The debug build 
 is automatically signed with a debug key provided by the SDK tools which is the reason for using the
 **app-debug.apk** version of the file.

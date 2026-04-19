@@ -191,7 +191,7 @@ public class DroidHunter extends Activity
 
       /*
        * Normally it's unnecessary to cancel as toast will disappear after
-       * appropriate duration. However if the user clicks the back button while
+       * appropriate duration. However, if the user clicks the back button while
        * the toast is still visible this call will close the view immediately
        * versus waiting for the duration to complete.
        */
@@ -419,7 +419,7 @@ public class DroidHunter extends Activity
     {
       gameTimeLimit -= 1000;
 
-      /* The above comment explains it all. Nuff said! */
+      /* The above comment explains it all. Enough said! */
       statusAreaHandler.post(statusAreaRunnable);
     }
   }
