@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId "com.pasquasoft.android"
@@ -25,7 +25,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
     }
-    namespace 'com.pasquasoft.android'
+    namespace = 'com.pasquasoft.android'
 }
 
 dependencies {
