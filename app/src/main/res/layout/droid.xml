@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
 
     <FrameLayout
         android:id="@+id/status"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#0000FF" >
+        android:background="#00BCD4">
 
         <TextView
             android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|start"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
@@ -21,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
@@ -28,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </FrameLayout>
 
@@ -35,6 +39,7 @@
         android:id="@+id/canvasView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/status" />
+        android:layout_below="@+id/status"
+        android:background="@color/white" />
 
 </RelativeLayout>

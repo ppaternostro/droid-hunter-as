@@ -39,8 +39,8 @@ public class CanvasView extends View implements Runnable
   public static final int HARD_FPS = 60;
   public static final int RIDICULOUS_FPS = 80;
 
-  private final int explosionId;
-  private final int fireId;
+  private int explosionId;
+  private int fireId;
   private int period;
   private int width;
   private int height;
@@ -60,7 +60,7 @@ public class CanvasView extends View implements Runnable
 
   private Thread thread;
 
-  private final Context context;
+  private Context context;
 
   private final Bitmap[] animationSequence = new Bitmap[4];
 
@@ -75,6 +75,9 @@ public class CanvasView extends View implements Runnable
   public CanvasView(Context context, AttributeSet as)
   {
     super(context, as);
+
+    // Added to prevent Android Studio Layout Editor warning
+    if (isInEditMode()) return;
 
     AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();

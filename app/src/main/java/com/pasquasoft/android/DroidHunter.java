@@ -11,7 +11,6 @@ import com.pasquasoft.android.util.Util;
 import com.pasquasoft.android.view.CanvasView;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
@@ -21,13 +20,14 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 
-public class DroidHunter extends Activity
+public class DroidHunter extends ComponentActivity
 {
   private static final String PREFS = "DroidHunter";
 
@@ -131,6 +131,35 @@ public class DroidHunter extends Activity
   {
     super.onCreate(savedInstanceState);
 
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        keyCodeBack = true;
+
+        /*
+         * Normally it's unnecessary to cancel as toast will disappear after
+         * appropriate duration. However, if the user clicks the back button while
+         * the toast is still visible this call will close the view immediately
+         * versus waiting for the duration to complete.
+         */
+        toast.cancel();
+
+        if (canvasView.isRunning())
+        {
+          stopGame();
+        }
+
+        // "Super" equivalent: disable this callback and re-trigger
+        setEnabled(false);
+        getOnBackPressedDispatcher().onBackPressed();
+
+        // Re-enable to catch the next back press
+        setEnabled(true);
+      }
+    };
+
+    getOnBackPressedDispatcher().addCallback(this,  callback);
+
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
     /* Make full screen by removing action bar */
@@ -180,30 +209,6 @@ public class DroidHunter extends Activity
     {
       startGame();
     }
-  }
-
-  @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event)
-  {
-    if (keyCode == KeyEvent.KEYCODE_BACK)
-    {
-      keyCodeBack = true;
-
-      /*
-       * Normally it's unnecessary to cancel as toast will disappear after
-       * appropriate duration. However, if the user clicks the back button while
-       * the toast is still visible this call will close the view immediately
-       * versus waiting for the duration to complete.
-       */
-      toast.cancel();
-
-      if (canvasView.isRunning())
-      {
-        stopGame();
-      }
-    }
-
-    return super.onKeyDown(keyCode, event);
   }
 
   /**
@@ -366,7 +371,7 @@ public class DroidHunter extends Activity
 
     String timerReset = getString(R.string.label_time) + " " + (minutes < 10 ? "0" + minutes : "" + minutes)
         + getString(R.string.time_separator) + (seconds < 0 ? "00" : (seconds < 10 ? "0" + seconds : "" + seconds));
-    String countReset = getString(R.string.label_droids) + " " + canvasView.getDroidCount();
+    String countReset = getString(R.string.label_droids) + ": " + canvasView.getDroidCount();
     String ratioReset = getString(R.string.label_hit) + " " + canvasView.getHitPercentage() + "%";
 
     /* Update the status area */

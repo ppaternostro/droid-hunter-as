@@ -3,14 +3,16 @@ package com.pasquasoft.android;
 import com.pasquasoft.android.dialog.SettingsDialog;
 import com.pasquasoft.android.util.Util;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class Main extends Activity implements OnClickListener
+import androidx.activity.ComponentActivity;
+import androidx.activity.EdgeToEdge;
+
+public class Main extends ComponentActivity implements OnClickListener
 {
   private Intent droidIntent;
 
@@ -18,6 +20,8 @@ public class Main extends Activity implements OnClickListener
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+    EdgeToEdge.enable(this);
 
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
 

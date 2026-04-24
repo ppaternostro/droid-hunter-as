@@ -2,12 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:animationCache="false">
+    android:animationCache="false"
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/droid_iron"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:scaleType="fitCenter"
         android:src="@drawable/background" />
 
@@ -23,8 +26,7 @@
             android:layout_height="50dip"
             android:layout_alignParentStart="true"
             android:layout_marginTop="36dp"
-            android:text="@string/label_new_game">
-        </Button>
+            android:text="@string/label_new_game" />
 
         <Button
             android:id="@+id/settings"
@@ -32,8 +34,7 @@
             android:layout_height="50dip"
             android:layout_below="@+id/newGame"
             android:layout_alignParentStart="true"
-            android:text="@string/label_settings">
-        </Button>
+            android:text="@string/label_settings" />
 
         <Button
             android:id="@+id/about"
@@ -41,17 +42,15 @@
             android:layout_height="50dip"
             android:layout_below="@+id/settings"
             android:layout_alignParentStart="true"
-            android:text="@string/label_about">
-        </Button>
+            android:text="@string/label_about" />
 
         <Button
             android:id="@+id/howTo"
             android:layout_width="200dip"
             android:layout_height="50dip"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/about"
-            android:text="@string/label_how_to">
-        </Button>
+            android:layout_alignParentStart="true"
+            android:text="@string/label_how_to" />
     </RelativeLayout>
 
     <ImageView

@@ -18,7 +18,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_model"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/droidModel"
@@ -33,7 +34,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_mode"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/gameMode"
@@ -48,7 +50,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_sound_mode"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/soundMode"
@@ -63,7 +66,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_weapon"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/weaponSound"
@@ -78,7 +82,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_difficulty_level"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/difficultyLevel"
@@ -94,7 +99,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_droids"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/droids"
@@ -113,7 +119,8 @@
             android:paddingStart="3dip"
             android:paddingEnd="3dip"
             android:text="@string/label_time_limit"
-            android:textColor="#0277BD" />
+            android:textColor="#0277BD"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/timeLimit"
