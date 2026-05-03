@@ -40,4 +40,4 @@ You will need to [sideload and install](https://www.howtogeek.com/313433/how-to-
 the **app-debug.apk** file to your mobile device.
 
 ### Game Play (Screen Recording Video)
-[Droid Hunter Screen Recording](https://github.com/user-attachments/assets/7ac973e4-2d96-4f82-b38b-e147d544d4a7)
+[Droid Hunter Screen Recording](https://github.com/user-attachments/assets/e79da0f1-07e6-487c-85e8-dabe74b494c3)

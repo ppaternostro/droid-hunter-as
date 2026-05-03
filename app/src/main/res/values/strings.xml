@@ -3,7 +3,7 @@
     <string name="droid_hunter">Droid Hunter</string>
     <string name="title_settings">Settings</string>
     <string name="title_error_dialog">Error</string>
-    <string name="message_time_limit_error">Invalid number of droids or time limit. Time limit must be in the form mm:ss and cannot exceed 59:59</string>
+    <string name="message_time_limit_error">Invalid number of droids or time limit. Time limit must be in the form mm:ss, cannot equal 00:00 and cannot exceed 59:59</string>
     <string name="label_ok">OK</string>
     <string name="label_level_1">Level 1</string>
     <string name="label_level_2">Level 2</string>
@@ -50,7 +50,7 @@
     <string name="message_failed">Better luck next time!</string>
     <string name="message_success">Congratulations! You saved the universe!</string>
     <string name="title_about">About Droid Hunter</string>
-    <string name="message_about">Droid Hunter\nPasquaSoft L.L.C.\nCopyright© 2010–2025\nImages by Aha-Soft\nhttp://www.aha-soft.com</string>
+    <string name="message_about">Droid Hunter\nPasquaSoft L.L.C.\nCopyright© 2010–2026\nImages by Aha-Soft\nhttp://www.aha-soft.com</string>
     <string name="mode_single">Single</string>
     <string name="mode_multilevel">Multilevel</string>
     <string name="sound_on">On</string>
@@ -88,4 +88,5 @@
     <string name="spinner_prompt_weapon">Choose weapon sound</string>
     <string name="spinner_prompt_difficulty">Choose difficulty level</string>
     <string name="message_how_to">Touch the droids to destroy them in the allotted time. Apply game settings including droid model, game mode, number of droids, time limit, difficulty level and weapon sound.</string>
+    <string name="hint_mm_ss">mm:ss</string>
 </resources>

@@ -5,6 +5,7 @@ import java.util.Locale;
 import com.pasquasoft.android.DroidHunterApplication;
 import com.pasquasoft.android.R;
 import com.pasquasoft.android.adapter.DroidArrayAdapter;
+import com.pasquasoft.android.com.pasquasoft.android.watch.TimeMaskWatcher;
 import com.pasquasoft.android.util.Util;
 
 import android.app.Activity;
@@ -75,6 +76,8 @@ public class SettingsDialog extends Dialog implements OnClickListener
     difficultyLevel = findViewById(R.id.difficultyLevel);
     save = findViewById(R.id.save);
     cancel = findViewById(R.id.cancel);
+
+    timeLimit.addTextChangedListener(new TimeMaskWatcher());
 
     /* Set 'model' spinner values */
     DroidArrayAdapter modelAdapter = new DroidArrayAdapter(context, R.layout.row, R.id.row_text,
@@ -163,11 +166,10 @@ public class SettingsDialog extends Dialog implements OnClickListener
     if (view == save)
     {
       /*
-       * Determine if valid droids number and time limit matches regular
-       * expression
+       * Determine if valid droids number and valid time limit.
        */
-      if (isValid(droids.getEditableText().toString())
-          && timeLimit.getEditableText().toString().matches("^([0-5][0-9]):([0-5][0-9])$"))
+      if (isValidDroids(droids.getEditableText().toString())
+          && isValidTimeLimit(timeLimit.getEditableText().toString()))
       {
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -198,8 +200,13 @@ public class SettingsDialog extends Dialog implements OnClickListener
     }
   }
 
-  private boolean isValid(String droids)
+  private boolean isValidDroids(String droids)
   {
     return !droids.equals("0") && !droids.equals("00") && !droids.isEmpty();
+  }
+
+  private boolean isValidTimeLimit(String timeLimit)
+  {
+    return timeLimit.matches("^([0-5][0-9]):([0-5][0-9])$") && !timeLimit.equals("00:00");
   }
 }

@@ -129,6 +129,7 @@
             android:importantForAutofill="no"
             android:inputType="time"
             android:minHeight="48dp"
+            android:hint="@string/hint_mm_ss"
             android:singleLine="true" />
 
         <LinearLayout
