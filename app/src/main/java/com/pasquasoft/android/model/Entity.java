@@ -31,7 +31,7 @@ public class Entity
     int derivedX = randomGenerator.nextInt(boundsWidth + 1);
     int derivedY = randomGenerator.nextInt(boundsHeight + 1);
 
-    setBounds(boundsHeight, boundsWidth);
+    setBounds(boundsWidth, boundsHeight);
     this.xIncrement = this.yIncrement = this.increment = increment;
 
     sprite = SpriteCache.getInstance().getSprite(ref, context);
@@ -95,14 +95,31 @@ public class Entity
     return rectangle.contains(x, y);
   }
 
-  public void setBounds(int boundsHeight, int boundsWidth)
+  public int getCenterX()
   {
-    this.boundsHeight = boundsHeight;
+    return rectangle.centerX();
+  }
+
+  public int getCenterY()
+  {
+    return rectangle.centerY();
+  }
+
+  public void reorient(int boundsWidth, int boundsHeight)
+  {
+    setBounds(boundsWidth, boundsHeight);
+    swapAxisIncrements();
+    swapRectangleCoordinates();
+  }
+
+  private void setBounds(int boundsWidth, int boundsHeight)
+  {
     this.boundsWidth = boundsWidth;
+    this.boundsHeight = boundsHeight;
   }
 
   /** @noinspection SuspiciousNameCombination */
-  public void swapAxisIncrements()
+  private void swapAxisIncrements()
   {
     int swappedY = xIncrement;
 
@@ -111,7 +128,7 @@ public class Entity
   }
 
   /** @noinspection SuspiciousNameCombination */
-  public void swapRectangleCoordinates()
+  private void swapRectangleCoordinates()
   {
     rectangle.set(rectangle.top, rectangle.left, rectangle.bottom, rectangle.right);
   }

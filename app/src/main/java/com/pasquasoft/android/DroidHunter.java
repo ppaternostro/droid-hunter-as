@@ -81,7 +81,7 @@ public class DroidHunter extends ComponentActivity
     if (config.orientation == Configuration.ORIENTATION_LANDSCAPE
         || config.orientation == Configuration.ORIENTATION_PORTRAIT)
     {
-      new Handler(Looper.getMainLooper()).postDelayed(() -> canvasView.reorientDroids(), 100);
+      new Handler(Looper.getMainLooper()).postDelayed(() -> canvasView.reorient(), 100);
     }
   }
 
@@ -133,14 +133,15 @@ public class DroidHunter extends ComponentActivity
 
     OnBackPressedCallback callback = new OnBackPressedCallback(true) {
       @Override
-      public void handleOnBackPressed() {
+      public void handleOnBackPressed()
+      {
         keyCodeBack = true;
 
         /*
          * Normally it's unnecessary to cancel as toast will disappear after
-         * appropriate duration. However, if the user clicks the back button while
-         * the toast is still visible this call will close the view immediately
-         * versus waiting for the duration to complete.
+         * appropriate duration. However, if the user clicks the back button
+         * while the toast is still visible this call will close the view
+         * immediately versus waiting for the duration to complete.
          */
         toast.cancel();
 
@@ -158,7 +159,7 @@ public class DroidHunter extends ComponentActivity
       }
     };
 
-    getOnBackPressedDispatcher().addCallback(this,  callback);
+    getOnBackPressedDispatcher().addCallback(this, callback);
 
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -237,11 +238,15 @@ public class DroidHunter extends ComponentActivity
           canvasView.start(application.getCurrentLevel(), application.getDroids()[model].imageResourceId());
         }
 
+        gameTimeLimit = gameTimeLimit();
+
         statusTimer = new Timer();
-        statusTimer.schedule(new StatusTask(), 0, 1000);
+        statusTimer.schedule(new StatusTask(), 1000, 1000);
 
         gameTimer = new Timer();
-        gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + (gameTimeLimit = gameTimeLimit())));
+        gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + gameTimeLimit));
+
+        updateStatusArea();
       }
     }, 200);
   }
@@ -266,13 +271,15 @@ public class DroidHunter extends ComponentActivity
 
     canvasView.stop();
 
+    String timerReset = getString(R.string.label_time) + " " + getString(R.string.time_reset);
+
+    /* Reset the timer display */
+    timer.setText(timerReset);
+
     if (!timedOut)
     {
-      String timerReset = getString(R.string.label_time) + " " + getString(R.string.time_reset);
       String countReset = getString(R.string.label_droids) + " 0";
 
-      /* Reset the status area */
-      timer.setText(timerReset);
       count.setText(countReset);
     }
   }
@@ -307,7 +314,7 @@ public class DroidHunter extends ComponentActivity
 
     /* Canceled timers cannot schedule new tasks */
     statusTimer = new java.util.Timer();
-    statusTimer.schedule(new StatusTask(), 0, 1000);
+    statusTimer.schedule(new StatusTask(), 1000, 1000);
 
     gameTimer = new java.util.Timer();
     gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + gameTimeLimit));
@@ -338,8 +345,8 @@ public class DroidHunter extends ComponentActivity
     String[] parts = timeLimit.split(getString(R.string.time_separator));
 
     /* Convert parts to milliseconds */
-    int minutes = Integer.parseInt(parts[0]) * 60 * 1000;
-    int seconds = Integer.parseInt(parts[1]) * 1000;
+    long minutes = Long.parseLong(parts[0]) * 60 * 1000;
+    long seconds = Long.parseLong(parts[1]) * 1000;
 
     return minutes + seconds;
   }

@@ -1,12 +1,14 @@
 package com.pasquasoft.android.view;
 
 import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.pasquasoft.android.R;
 import com.pasquasoft.android.model.Animation;
 import com.pasquasoft.android.model.Entity;
 import com.pasquasoft.android.model.Level;
+import com.pasquasoft.android.model.Star;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -53,6 +55,10 @@ public class CanvasView extends View implements Runnable
   private boolean paused;
   private boolean stopped;
 
+  private Star star;
+  private int starSpawnCounter;
+  private static final Random starRandom = new Random();
+
   /* Performance tip: favor virtual over interface */
   private final ConcurrentLinkedQueue<Animation> animationQueue = new ConcurrentLinkedQueue<>();
 
@@ -77,7 +83,10 @@ public class CanvasView extends View implements Runnable
     super(context, as);
 
     // Added to prevent Android Studio Layout Editor warning
-    if (isInEditMode()) return;
+    if (isInEditMode())
+    {
+      return;
+    }
 
     AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
@@ -135,6 +144,12 @@ public class CanvasView extends View implements Runnable
       for (Entity droid : droids)
       {
         droid.draw(canvas);
+      }
+
+      /* Draw the star power-up */
+      if (star != null && star.isActive())
+      {
+        star.draw(canvas);
       }
 
       /* Animate the explosion */
@@ -198,6 +213,8 @@ public class CanvasView extends View implements Runnable
   public void start(int entities, int imageResourceId)
   {
     droids = new ConcurrentLinkedQueue<>();
+    star = null;
+    starSpawnCounter = 0;
 
     /* Load the entities */
     for (int i = 0; i < entities; i++)
@@ -216,6 +233,8 @@ public class CanvasView extends View implements Runnable
     {
       droids.clear();
     }
+
+    star = null;
 
     pause();
 
@@ -319,6 +338,7 @@ public class CanvasView extends View implements Runnable
       beforeTime = System.currentTimeMillis();
 
       moveDroids();
+      updateStar();
 
       postInvalidate();
 
@@ -354,6 +374,30 @@ public class CanvasView extends View implements Runnable
     }
   }
 
+  private void updateStar()
+  {
+    if (star != null)
+    {
+      if (star.isActive())
+      {
+        star.move();
+        return;
+      }
+
+      star = null;
+    }
+
+    starSpawnCounter++;
+
+    int interval = Math.max(100, 10000 / period);
+
+    if (starSpawnCounter >= interval + starRandom.nextInt(interval))
+    {
+      star = new Star(width, height, increment, context);
+      starSpawnCounter = 0;
+    }
+  }
+
   public int getDroidCount()
   {
     return droids.size();
@@ -366,6 +410,20 @@ public class CanvasView extends View implements Runnable
     if (running)
     {
       soundPool.play(fireId, 1.0f, 1.0f, 1, 0, 1.0f);
+
+      float tx = event.getX();
+      float ty = event.getY();
+
+      /*
+       * Check star touch first (power-up, no attempt counted)
+       */
+      if (star != null && star.isActive() && star.isHit(tx, ty))
+      {
+        star.deactivate();
+        star = null;
+        destroyAllDroids();
+        return false;
+      }
 
       attempts++;
 
@@ -399,13 +457,34 @@ public class CanvasView extends View implements Runnable
     return false;
   }
 
-  public void reorientDroids()
+  private void destroyAllDroids()
+  {
+    if (soundPool != null)
+    {
+      soundPool.play(explosionId, 1.0f, 1.0f, 1, 0, 1.0f);
+    }
+
+    ConcurrentLinkedQueue<Entity> destroyed = new ConcurrentLinkedQueue<>(droids);
+    droids.clear();
+
+    for (Entity droid : destroyed)
+    {
+      animationQueue.add(new Animation(droid.getCenterX(), droid.getCenterY()));
+      hits++;
+      attempts++;
+    }
+  }
+
+  public void reorient()
   {
     for (Entity droid : droids)
     {
-      droid.setBounds(height, width);
-      droid.swapAxisIncrements();
-      droid.swapRectangleCoordinates();
+      droid.reorient(width, height);
+    }
+
+    if (star != null && star.isActive())
+    {
+      star.reorient(width, height);
     }
   }
 }

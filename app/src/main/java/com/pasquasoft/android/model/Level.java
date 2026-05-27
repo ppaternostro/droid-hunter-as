@@ -14,5 +14,4 @@ package com.pasquasoft.android.model;
  */
 public record Level(int entities, int increment, int framesPerSecond, String name, String timeLimit)
 {
-
 }
