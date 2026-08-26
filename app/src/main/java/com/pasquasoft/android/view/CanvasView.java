@@ -54,6 +54,7 @@ public class CanvasView extends View implements Runnable
   private boolean running;
   private boolean paused;
   private boolean stopped;
+  private boolean muted;
 
   private Star star;
   private int starSpawnCounter;
@@ -201,6 +202,11 @@ public class CanvasView extends View implements Runnable
     return stopped;
   }
 
+  public void setMuted(boolean muted)
+  {
+    this.muted = muted;
+  }
+
   public void start(Level level, int imageResourceId)
   {
     increment = level.increment();
@@ -215,6 +221,7 @@ public class CanvasView extends View implements Runnable
     droids = new ConcurrentLinkedQueue<>();
     star = null;
     starSpawnCounter = 0;
+    stopped = false;
 
     /* Load the entities */
     for (int i = 0; i < entities; i++)
@@ -409,7 +416,11 @@ public class CanvasView extends View implements Runnable
   {
     if (running)
     {
-      soundPool.play(fireId, 1.0f, 1.0f, 1, 0, 1.0f);
+      if (soundPool != null)
+      {
+        float volume = muted ? 0.0f : 1.0f;
+        soundPool.play(fireId, volume, volume, 1, 0, 1.0f);
+      }
 
       float tx = event.getX();
       float ty = event.getY();
@@ -440,7 +451,11 @@ public class CanvasView extends View implements Runnable
           hits++;
 
           /* Initiate the explosion sound */
-          soundPool.play(explosionId, 1.0f, 1.0f, 1, 0, 1.0f);
+          if (soundPool != null)
+          {
+            float volume = muted ? 0.0f : 1.0f;
+            soundPool.play(explosionId, volume, volume, 1, 0, 1.0f);
+          }
 
           /*
            * Create an animation object, set its coordinates to the 'hit'
@@ -461,7 +476,8 @@ public class CanvasView extends View implements Runnable
   {
     if (soundPool != null)
     {
-      soundPool.play(explosionId, 1.0f, 1.0f, 1, 0, 1.0f);
+      float volume = muted ? 0.0f : 1.0f;
+      soundPool.play(explosionId, volume, volume, 1, 0, 1.0f);
     }
 
     ConcurrentLinkedQueue<Entity> destroyed = new ConcurrentLinkedQueue<>(droids);

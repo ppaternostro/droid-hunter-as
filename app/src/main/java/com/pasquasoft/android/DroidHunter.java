@@ -90,17 +90,6 @@ public class DroidHunter extends ComponentActivity
   {
     super.onPause();
 
-    /*
-     * Unmute a muted stream on pause event.
-     */
-    if (muted)
-    {
-      /*
-       * Delay the unmute in case any sound is still playing.
-       */
-      new Handler(Looper.getMainLooper()).postDelayed(this::unmute, 2000);
-    }
-
     if (isFinishing())
     {
       // Prevent window leaks
@@ -117,7 +106,7 @@ public class DroidHunter extends ComponentActivity
       }
 
       application.resetLevel();
-      canvasView.freeResources();
+      new Handler(Looper.getMainLooper()).postDelayed(canvasView::freeResources, 500);
     }
     else
     {
@@ -193,14 +182,12 @@ public class DroidHunter extends ComponentActivity
     super.onResume();
 
     /*
-     * If the game is in a muted state we mute it since mute was removed on
-     * pause event.
+     * Re-read the sound mode preference so that changes made while the activity
+     * was paused (e.g. via the Settings dialog on the main screen) are picked
+     * up immediately.
      */
-    if (muted)
-    {
-      /* Mute sound */
-      mute();
-    }
+    muted = prefs.getInt(getString(R.string.prefs_sound_mode_key), UNMUTE) == MUTE;
+    canvasView.setMuted(muted);
 
     if (canvasView.isPaused())
     {
@@ -395,20 +382,6 @@ public class DroidHunter extends ComponentActivity
 
     alerts.add(Util.messageDialog(DroidHunter.this, getString(R.string.droid_hunter),
         getString(R.string.message_failed), dialogListener));
-  }
-
-  private void unmute()
-  {
-    AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-    // Get max volume
-    int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-    // Set volume to half max
-    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume / 2, 0);
-  }
-
-  private void mute()
-  {
-    ((AudioManager) getSystemService(AUDIO_SERVICE)).setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
   }
 
   private class GameTask extends TimerTask
