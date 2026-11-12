@@ -68,4 +68,13 @@ public final class SpriteCache
 
     return sprite;
   }
+
+  /**
+   * Removes all cached sprites. Bitmaps still referenced by active sprites are
+   * released by the garbage collector once those references are gone.
+   */
+  public synchronized void clear()
+  {
+    sprites.clear();
+  }
 }

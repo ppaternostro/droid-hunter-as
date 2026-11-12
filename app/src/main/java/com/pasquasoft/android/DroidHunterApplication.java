@@ -8,8 +8,10 @@ import static com.pasquasoft.android.view.CanvasView.RIDICULOUS_FPS;
 import java.util.HashMap;
 
 import com.pasquasoft.android.model.Level;
+import com.pasquasoft.android.sprite.SpriteCache;
 
 import android.app.Application;
+import android.content.ComponentCallbacks2;
 
 public class DroidHunterApplication extends Application
 {
@@ -61,6 +63,17 @@ public class DroidHunterApplication extends Application
     droids[13] = new Droid(R.string.droid_military, R.drawable.military);
     droids[14] = new Droid(R.string.droid_paranoid, R.drawable.paranoid);
     droids[15] = new Droid(R.string.droid_sad, R.drawable.sad);
+  }
+
+  @Override
+  public void onTrimMemory(int level)
+  {
+    super.onTrimMemory(level);
+
+    if (level >= ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN)
+    {
+      SpriteCache.getInstance().clear();
+    }
   }
 
   @Override

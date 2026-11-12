@@ -47,6 +47,9 @@ public class DroidHunter extends ComponentActivity
   private Handler gameTimerHandler;
   private Handler statusAreaHandler;
 
+  private final Handler startGameHandler = new Handler(Looper.getMainLooper());
+  private final Runnable startGameRunnable = this::beginGame;
+
   private Timer statusTimer;
   private Timer gameTimer;
 
@@ -62,6 +65,8 @@ public class DroidHunter extends ComponentActivity
   private boolean timedOut;
   private boolean muted;
   private boolean keyCodeBack;
+  private boolean gameStarted;
+  private boolean resumed;
 
   private final Runnable statusAreaRunnable = this::updateStatusArea;
   private final Runnable gameTimerRunnable = this::displayMessage;
@@ -90,6 +95,9 @@ public class DroidHunter extends ComponentActivity
   {
     super.onPause();
 
+    resumed = false;
+    startGameHandler.removeCallbacks(startGameRunnable);
+
     if (isFinishing())
     {
       // Prevent window leaks
@@ -106,11 +114,23 @@ public class DroidHunter extends ComponentActivity
       }
 
       application.resetLevel();
-      new Handler(Looper.getMainLooper()).postDelayed(canvasView::freeResources, 500);
     }
     else
     {
       pauseGame();
+    }
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+
+    startGameHandler.removeCallbacks(startGameRunnable);
+
+    if (canvasView != null)
+    {
+      canvasView.freeResources();
     }
   }
 
@@ -181,6 +201,8 @@ public class DroidHunter extends ComponentActivity
   {
     super.onResume();
 
+    resumed = true;
+
     /*
      * Re-read the sound mode preference so that changes made while the activity
      * was paused (e.g. via the Settings dialog on the main screen) are picked
@@ -189,7 +211,16 @@ public class DroidHunter extends ComponentActivity
     muted = prefs.getInt(getString(R.string.prefs_sound_mode_key), UNMUTE) == MUTE;
     canvasView.setMuted(muted);
 
-    if (canvasView.isPaused())
+    /*
+     * A game-over dialog may still be visible if the app was backgrounded
+     * while it was displayed. Do not start a new game behind it.
+     */
+    if (!alerts.isEmpty())
+    {
+      return;
+    }
+
+    if (gameStarted && canvasView.isPaused())
     {
       resumeGame();
     }
@@ -208,34 +239,48 @@ public class DroidHunter extends ComponentActivity
 
     toast.show();
 
-    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-      /*
-       * This code is scheduled to run after a delay. In the meantime the user
-       * may have hit the back button. In that situation we don't start the game
-       * since the user's intent is to maneuver back to the main screen.
-       */
-      if (!keyCodeBack)
-      {
-        if (mode == SINGLE)
-        {
-          canvasView.start(gameDroids(), application.getDroids()[model].imageResourceId());
-        }
-        else
-        {
-          canvasView.start(application.getCurrentLevel(), application.getDroids()[model].imageResourceId());
-        }
+    gameStarted = false;
 
-        gameTimeLimit = gameTimeLimit();
+    startGameHandler.removeCallbacks(startGameRunnable);
+    startGameHandler.postDelayed(startGameRunnable, 200);
+  }
 
-        statusTimer = new Timer();
-        statusTimer.schedule(new StatusTask(), 1000, 1000);
+  /**
+   * Begins the game play after the start delay.
+   */
+  private void beginGame()
+  {
+    /*
+     * This code is scheduled to run after a delay. In the meantime the user
+     * may have hit the back button or moved the app to the background. In
+     * those situations we don't start the game since the user's intent is to
+     * leave the game screen.
+     */
+    if (keyCodeBack || isFinishing() || !resumed)
+    {
+      return;
+    }
 
-        gameTimer = new Timer();
-        gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + gameTimeLimit));
+    if (mode == SINGLE)
+    {
+      canvasView.start(gameDroids(), application.getDroids()[model].imageResourceId());
+    }
+    else
+    {
+      canvasView.start(application.getCurrentLevel(), application.getDroids()[model].imageResourceId());
+    }
 
-        updateStatusArea();
-      }
-    }, 200);
+    gameTimeLimit = gameTimeLimit();
+
+    statusTimer = new Timer();
+    statusTimer.schedule(new StatusTask(), 1000, 1000);
+
+    gameTimer = new Timer();
+    gameTimer.schedule(new GameTask(), new Date(System.currentTimeMillis() + gameTimeLimit));
+
+    gameStarted = true;
+
+    updateStatusArea();
   }
 
   /**
@@ -243,6 +288,10 @@ public class DroidHunter extends ComponentActivity
    */
   private void stopGame()
   {
+    gameStarted = false;
+
+    startGameHandler.removeCallbacks(startGameRunnable);
+
     if (gameTimer != null)
     {
       gameTimer.cancel();
@@ -287,8 +336,9 @@ public class DroidHunter extends ComponentActivity
       statusTimer.cancel();
     }
 
-    /* Pause the game */
+    /* Pause the game and its audio */
     canvasView.pause();
+    canvasView.pauseAudio();
   }
 
   /**
@@ -296,8 +346,9 @@ public class DroidHunter extends ComponentActivity
    */
   private void resumeGame()
   {
-    /* Resume the game */
+    /* Resume the game and its audio */
     canvasView.resume();
+    canvasView.resumeAudio();
 
     /* Canceled timers cannot schedule new tasks */
     statusTimer = new java.util.Timer();

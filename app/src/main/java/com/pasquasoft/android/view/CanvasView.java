@@ -55,6 +55,7 @@ public class CanvasView extends View implements Runnable
   private boolean paused;
   private boolean stopped;
   private boolean muted;
+  private boolean released;
 
   private Star star;
   private int starSpawnCounter;
@@ -139,6 +140,11 @@ public class CanvasView extends View implements Runnable
   {
     super.onDraw(canvas);
 
+    if (released)
+    {
+      return;
+    }
+
     if (droids != null)
     {
       /* Draw the droids */
@@ -205,6 +211,28 @@ public class CanvasView extends View implements Runnable
   public void setMuted(boolean muted)
   {
     this.muted = muted;
+  }
+
+  /**
+   * Pauses all audio streams started by this view.
+   */
+  public void pauseAudio()
+  {
+    if (soundPool != null)
+    {
+      soundPool.autoPause();
+    }
+  }
+
+  /**
+   * Resumes all audio streams paused by {@link #pauseAudio()}.
+   */
+  public void resumeAudio()
+  {
+    if (soundPool != null)
+    {
+      soundPool.autoResume();
+    }
   }
 
   public void start(Level level, int imageResourceId)
@@ -290,14 +318,29 @@ public class CanvasView extends View implements Runnable
 
   public void freeResources()
   {
-    for (Bitmap bitmap : animationSequence)
+    if (released)
     {
-      bitmap.recycle();
+      return;
     }
 
-    soundPool.release();
+    released = true;
 
-    soundPool = null;
+    animationQueue.clear();
+
+    for (Bitmap bitmap : animationSequence)
+    {
+      if (bitmap != null && !bitmap.isRecycled())
+      {
+        bitmap.recycle();
+      }
+    }
+
+    if (soundPool != null)
+    {
+      soundPool.release();
+
+      soundPool = null;
+    }
   }
 
   public int getHitPercentage()
@@ -414,7 +457,7 @@ public class CanvasView extends View implements Runnable
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
-    if (running)
+    if (running && !released)
     {
       if (soundPool != null)
       {
@@ -493,9 +536,12 @@ public class CanvasView extends View implements Runnable
 
   public void reorient()
   {
-    for (Entity droid : droids)
+    if (droids != null)
     {
-      droid.reorient(width, height);
+      for (Entity droid : droids)
+      {
+        droid.reorient(width, height);
+      }
     }
 
     if (star != null && star.isActive())
